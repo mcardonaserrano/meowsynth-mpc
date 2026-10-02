@@ -67,9 +67,11 @@ Things the original does that may surprise:
 - `re/`: how the DLL was read (`NOTES.md`), the parser and the patch's netlist; `re/ab/`: the A/B rig that runs
   the DLL under Wine next to this engine.
 
-## Credits
+## Credits and licence
 MeowSynth is knobster's (knobster.org, 2009), released as freeware. The cat, the logo, the panel and the
 lettering in `assets/`, `images/` and `previews/` are his, taken from the original plugin so this port can look
-like it; `previews/ab_original_dll.wav` is the original plugin playing. The original DLL itself is not in this
-repository: get MeowSynth from its author. The MPC side is built on
-[mpc-vst-plugins](https://github.com/sd88me/mpc-vst-plugins) by sd88me.
+like it, and are passed on here free of charge as the original is; `previews/ab_original_dll.wav` is the
+original plugin playing. The original DLL itself is not in this repository: get MeowSynth from its author.
+The MPC side is built on [mpc-vst-plugins](https://github.com/sd88me/mpc-vst-plugins) by sd88me.
+
+The code written for this port (the engine, the entry point, the tools) is under the MIT licence: see `LICENSE`.

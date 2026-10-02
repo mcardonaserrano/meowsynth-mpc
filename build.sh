@@ -37,5 +37,6 @@ mkdir -p dist
 cp -R "build/skin/$SKIN" "dist/$SKIN"
 cp build/meowsynth.so "dist/$SKIN/"
 python3 "$MV/tools/release.py" --so build/meowsynth.so --skin "build/skin/$SKIN" --entry build/pluginlist-entry.xml \
-    --version "$VERSION" --about "knobster's MeowSynth, rebuilt natively for MPC OS." -o dist
+    --version "$VERSION" --about "knobster's MeowSynth, rebuilt natively for MPC OS." \
+    --repo mcardonaserrano/meowsynth-mpc --license MIT --id meowsynth -o dist
 echo "plugin folder: dist/$SKIN"
