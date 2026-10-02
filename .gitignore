@@ -1,0 +1,7 @@
+# build outputs (./build.sh); the installable zip is attached to the GitHub release instead
+build/
+dist/
+# the A/B rig's Wine engine, prefix and cached renders (re/ab/setup.sh)
+re/ab/work/
+__pycache__/
+.DS_Store

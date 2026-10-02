@@ -1,0 +1,13 @@
+{
+  "name": "MeowSynth",
+  "vendor": "knobster",
+  "uid": "Meow",
+  "version": 1001,
+  "so": "meowsynth.so",
+  "params": "params.json",
+  "layout": "layout.conf",
+  "art": "html",
+  "defines": {
+    "HAS_LFO_BPM": 1
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "MeowSynth",
+  "params": [
+    {"key": "preset", "name": "Cat", "options": ["Clear cat", "Old cat", "March cat", "Catband", "Gospel cats"], "default": 0},
+    {"key": "env_m", "name": "M Attack", "min": 0, "max": 10, "default": 2.9},
+    {"key": "env_e", "name": "E Sustain", "min": 0, "max": 10, "default": 2.1},
+    {"key": "env_o", "name": "O Decay", "min": 0, "max": 10, "default": 7.2},
+    {"key": "env_w", "name": "W Release", "min": 0, "max": 10, "default": 4.3168},
+    {"key": "vib_amt", "name": "Vib Amnt", "min": 0, "max": 10, "default": 0},
+    {"key": "vib_atk", "name": "Vib Atck", "min": 0, "max": 10, "default": 10},
+    {"key": "vib_speed", "name": "Vib Speed", "options": ["4 bar", "2 bar", "1 bar", "2/1", "1/1", "1/2", "1/4", "1/8", "1/12", "1/16"], "default": 7},
+    {"key": "porta", "name": "Porta", "min": 0, "max": 100, "unit": "%", "default": 26},
+    {"key": "noise", "name": "Noise", "min": 0, "max": 100, "unit": "%", "default": 0},
+    {"key": "chorus", "name": "Chorus", "min": 0, "max": 100, "unit": "%", "default": 0},
+    {"key": "bend", "name": "P.Bend", "min": 1, "max": 12, "unit": "st", "default": 12, "display": "int"},
+    {"key": "polycat", "name": "Polycat", "options": ["Off", "On"], "default": 0},
+    {"key": "cutoff", "name": "Cutoff", "min": 0, "max": 10, "default": 4.3},
+    {"key": "reso", "name": "Resonance", "min": 0, "max": 10, "default": 7.8},
+    {"key": "envmod", "name": "Env Mod", "min": 0, "max": 10, "default": 10},
+    {"key": "ftype", "name": "Filter Type", "options": ["LP", "HP", "BP1", "BP2", "Notch"], "default": 0},
+    {"key": "fol_atk", "name": "Follow Attack", "min": 0, "max": 10, "unit": "ms", "default": 4.8},
+    {"key": "fol_dec", "name": "Follow Decay", "min": 0, "max": 10, "unit": "ms", "default": 10},
+    {"key": "fmix", "name": "Filter Mix", "min": 0, "max": 100, "unit": "%", "default": 100},
+    {"key": "gain", "name": "Gain", "min": 0, "max": 10, "default": 10},
+    {"key": "meow", "name": "Meow", "options": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"], "default": 0}
+  ]
+}

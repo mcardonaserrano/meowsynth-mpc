@@ -1,0 +1,4 @@
+/* MeowSynth: the page art (images/bg_*.png, tools/meow_art.py) already carries the panels, the lettering and
+ * the grey display boxes, so the renderer's own text boxes and their captions stay out of the way. */
+.box, .arrow-bg, .arrow { fill: none; stroke: none; }
+.box-label { display: none; }

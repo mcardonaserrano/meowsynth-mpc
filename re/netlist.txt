@@ -1,0 +1,902 @@
+=== CONTAINER Main (#3b) rect [0, 0, 20, 20]
+  cplug 3 CPlugIO2 "Spare" def='' partner=None : 
+  === CONTAINER Meow (#48) rect [523, 136, 652, 254]
+    cplug 3 CPlugIO2 "MIDI In" def='0' partner=77 : 
+    cplug 4 CPlugIO2 "Signal Out" def='' partner=84 : 
+    cplug 5 CPlugIO2 "Signal Out" def='' partner=91 : 
+    cplug 6 CPlugIO2 "MIDI Out" def='' partner=98 : 
+    cplug 7 CPlugIO2 "Spare" def='' partner=None : 
+    PM names {0: 'Clear cat', 1: 'Old cat', 2: 'March cat', 3: 'Catband', 4: 'Gospel cats'} nparams 16
+  - Bitmap Image <control_ob_bitmap/Image> #122 rect [639, 496, 977, 792]
+      0 "Animation Position" def='' 
+      1 "Filename" def='panels.png' list='bmp' 
+      2 "Mouse Down" def='0' 
+      3 "Frame Count" def='' 
+  - IO Mod <CUG/IO Mod> #128 rect [5, 0, 60, 81]
+      0 "MIDI In" def='' ->Midi to CV#1dc.0[] ->Patch Select#4aa.1[]
+      1 "Signal Out" def='' <-Chorus#308.5[Output]
+      2 "Signal Out" def='' <-Chorus#308.6[Output]
+      3 "MIDI Out" def='' <-Patch Select#4aa.2[]
+      4 "Spare" def='' 
+    === CONTAINER Container (#12a) rect [766, 128, 942, 463]
+      cplug 3 CPlugIO2 "Input" def='0' partner=207 : <-X-Mix#2a4.3[]
+      cplug 4 CPlugIO2 "Input" def='0' partner=215 : <-X-Mix#2a4.3[]
+      cplug 5 CPlugIO2 "Signal Out" def='' partner=257 : ->Chorus#308.3[Input]
+      cplug 6 CPlugIO2 "Signal Out" def='' partner=268 : ->Chorus#308.4[Input]
+      cplug 7 CPlugIO2 "Spare" def='' partner=None : 
+    - IO Mod <CUG/IO Mod> #166 rect [20, 20, 59, 75]
+        0 "Input" def='' ->DH_MultiFilter2#16b.0[] ->X-Mix#198.1[] ->Peak Follower#1a6.0[]
+        1 "Input" def='' ->DH_MultiFilter2#16f.0[] ->X-Mix#196.1[] ->Peak Follower#1a6.0[]
+        2 "Spare" def='' 
+    - IO Mod <CUG/IO Mod> #168 rect [669, 120, 724, 175]
+        0 "Signal Out" def='' <-VCA#1bf.2[]
+        1 "Signal Out" def='' <-VCA#1c1.2[]
+        2 "Spare" def='' 
+    - DH_MultiFilter2 <CPlugin2/DH_MultiFilter2 1.0.1+> #16b rect [295, 32, 393, 139]
+        0 def='0' <-IO Mod#166.0[Input]
+        1 def='1000' <-Cutoff#174.6[] <-Level Adj#1cf.2[]
+        2 def='2' <-Q#180.6[]
+        3 def='0' <-Filter Type#18d.6[]
+        4 def='1' 
+        5 def='0' 
+        6 def='0' ->X-Mix#198.0[]
+        7 def='1' 
+    - DH_MultiFilter2 <CPlugin2/DH_MultiFilter2 1.0.1+> #16f rect [303, 192, 401, 299]
+        0 def='0' <-IO Mod#166.1[Input]
+        1 def='1000' <-Cutoff#174.6[] <-Level Adj#1cf.2[]
+        2 def='2' <-Q#180.6[]
+        3 def='0' <-Filter Type#18d.6[]
+        4 def='1' 
+        5 def='0' 
+        6 def='0' ->X-Mix#196.0[]
+        7 def='1' 
+    - Cutoff <Ctl_Slider/Slider> #174 rect [40, 136, 95, 205] vals[0:6]=[4.3, 4.3, 4.3, 4.3, 4.3, 4.3] handle=41
+        0 def='-1' 
+        1 def='0' 
+        2 def='' 
+        3 def='-1' 
+        4 def='0' 
+        5 def='0' 
+        6 def='' ->DH_MultiFilter2#16b.1[] ->DH_MultiFilter2#16f.1[]
+        7 def='0' 
+        8 def='10' 
+        9 def='1' 
+        10 def='0' 
+        11 def='1' 
+    - Q <Ctl_Slider/Slider> #180 rect [61, 232, 116, 301] vals[0:6]=[7.8, 7.8, 7.8, 7.8, 7.8, 7.8] handle=2995
+        0 def='-1' 
+        1 def='0' 
+        2 def='' 
+        3 def='-1' 
+        4 def='0' 
+        5 def='0' 
+        6 def='' ->DH_MultiFilter2#16b.2[] ->DH_MultiFilter2#16f.2[]
+        7 def='0' 
+        8 def='10' 
+        9 def='1' 
+        10 def='0' 
+        11 def='1' 
+    - Filter Type <Ctl_Combo/List Entry> #18d rect [140, 280, 260, 335] vals[0:6]=[0, 0, 0, 0, 0, 0] handle=18467
+        0 def='-1' 
+        1 def='0' 
+        2 def='' 
+        3 def='-1' 
+        4 def='0' 
+        5 def='0' 
+        6 def='' ->DH_MultiFilter2#16f.3[] ->DH_MultiFilter2#16b.3[]
+        7 def='0' 
+        8 def='0' 
+    - X-Mix <CUG/X-Mix> #196 rect [437, 208, 492, 276]
+        0 def='0' <-DH_MultiFilter2#16f.6[]
+        1 def='0' <-IO Mod#166.1[Input]
+        2 def='0' <-Dry/Wet#19a.6[]
+        3 def='5' ->VCA#1c1.0[]
+        4 def='1' 
+    - X-Mix <CUG/X-Mix> #198 rect [445, 32, 500, 100]
+        0 def='0' <-DH_MultiFilter2#16b.6[]
+        1 def='0' <-IO Mod#166.0[Input]
+        2 def='0' <-Dry/Wet#19a.6[]
+        3 def='5' ->VCA#1bf.0[]
+        4 def='1' 
+    - Dry/Wet <Ctl_Slider/Slider> #19a rect [341, 336, 396, 390] vals[0:6]=[5.0, 5.0, 5.0, 5.0, 5.0, 5.0] handle=6334
+        0 def='-1' 
+        1 def='0' 
+        2 def='' 
+        3 def='-1' 
+        4 def='0' 
+        5 def='0' 
+        6 def='' ->X-Mix#198.2[] ->X-Mix#196.2[]
+        7 def='-5.000' 
+        8 def='5.000' 
+        9 def='2' 
+        10 def='0' 
+        11 def='1' 
+    - Peak Follower <CUG/Peak Follower> #1a6 rect [121, 400, 200, 468]
+        0 def='0' <-IO Mod#166.0[Input] <-IO Mod#166.1[Input]
+        1 def='8' <-Attack#1b3.6[]
+        2 def='7' <-Decay#1a7.6[]
+        3 def='0' ->Level Adj#1cf.0[]
+    - Decay <Ctl_Slider/Slider> #1a7 rect [29, 504, 84, 573] vals[0:6]=[10.0, 10.0, 10.0, 10.0, 10.0, 10.0] handle=4664
+        0 def='-1' 
+        1 def='0' 
+        2 def='' 
+        3 def='-1' 
+        4 def='0' 
+        5 def='0' 
+        6 def='' ->Peak Follower#1a6.2[]
+        7 def='0.000' 
+        8 def='10.000' 
+        9 def='1' 
+        10 def='0' 
+        11 def='1' 
+    - Attack <Ctl_Slider/Slider> #1b3 rect [29, 416, 84, 485] vals[0:6]=[4.8, 4.8, 4.8, 4.8, 4.8, 4.8] handle=25547
+        0 def='-1' 
+        1 def='0' 
+        2 def='' 
+        3 def='-1' 
+        4 def='0' 
+        5 def='0' 
+        6 def='' ->Peak Follower#1a6.1[]
+        7 def='0.000' 
+        8 def='10.000' 
+        9 def='1' 
+        10 def='0' 
+        11 def='1' 
+    - VCA <CUG/VCA> #1bf rect [529, 48, 608, 116]
+        0 def='0' <-X-Mix#198.3[]
+        1 def='8' <-Gain#1c3.6[]
+        2 def='0' ->IO Mod#168.0[Signal Out]
+        3 def='1' 
+    - VCA <CUG/VCA> #1c1 rect [537, 208, 616, 276]
+        0 def='0' <-X-Mix#196.3[]
+        1 def='8' <-Gain#1c3.6[]
+        2 def='0' ->IO Mod#168.1[Signal Out]
+        3 def='1' 
+    - Gain <Ctl_Slider/Slider> #1c3 rect [461, 328, 516, 397] vals[0:6]=[10.0, 10.0, 10.0, 10.0, 10.0, 10.0] handle=3035
+        0 def='-1' 
+        1 def='0' 
+        2 def='' 
+        3 def='-1' 
+        4 def='0' 
+        5 def='0' 
+        6 def='' ->VCA#1bf.1[] ->VCA#1c1.1[]
+        7 def='0.000' 
+        8 def='10.000' 
+        9 def='1' 
+        10 def='0' 
+        11 def='1' 
+    - Level Adj <CUG/Level Adj> #1cf rect [223, 392, 273, 447]
+        0 def='8' <-Peak Follower#1a6.3[]
+        1 def='8' <-EnvMod#1d0.6[]
+        2 def='0' ->DH_MultiFilter2#16b.1[] ->DH_MultiFilter2#16f.1[]
+    - EnvMod <Ctl_Slider/Slider> #1d0 rect [125, 496, 180, 565] vals[0:6]=[10.0, 10.0, 10.0, 10.0, 10.0, 10.0] handle=19264
+        0 def='-1' 
+        1 def='0' 
+        2 def='' 
+        3 def='-1' 
+        4 def='0' 
+        5 def='0' 
+        6 def='' ->Level Adj#1cf.1[]
+        7 def='0.000' 
+        8 def='10.000' 
+        9 def='1' 
+        10 def='0' 
+        11 def='1' 
+  - Midi to CV <CUG/Midi to CV> #1dc rect [162, 96, 254, 255]
+      0 def='0' <-IO Mod#128.0[MIDI In]
+      1 def='-1' 
+      2 def='12' <-Waveform#4b6.3[Choice]
+      3 def='0' ->ADSR#1e9.0[] ->Oscillator#1e1.4[] ->ADSR#271.0[] ->ADSR#2b2.0[]
+      4 def='0' ->Oscillator#1e1.0[] ->Oscillator#29b.0[]
+      5 def='0' ->ADSR#1e9.5[]
+      6 def='0' 
+      7 def='0' <-Waveform#48e.3[Choice]
+      8 def='1' 
+      9 def='5' <-Portamento time#2c6.6[]
+      10 def='3' 
+  - Oscillator <CUG/Oscillator> #1e1 rect [314, 96, 374, 203]
+      0 def='5' <-Midi to CV#1dc.4[] <-VCA#275.2[]
+      1 def='5' 
+      2 def='2' 
+      3 def='0' ->VCA#1ea.0[]
+      4 def='0' <-Midi to CV#1dc.3[]
+      5 def='0' 
+      6 def='0' 
+      7 def='5' 
+      8 def='0' 
+      9 def='0' 
+  - ADSR <CUG/ADSR> #1e9 rect [301, 264, 368, 371]
+      0 def='1' <-Midi to CV#1dc.3[]
+      1 def='0' <-M#28f.6[]
+      2 def='6' <-O#2de.6[]
+      3 def='6' <-E#2d2.6[]
+      4 def='4' <-W#2ba.6[]
+      5 def='8' <-Midi to CV#1dc.5[]
+      6 def='0' ->VCA#1ea.1[] ->Animation#2ea.3[Volts]
+  - VCA <CUG/VCA> #1ea rect [409, 208, 488, 276]
+      0 def='0' <-Oscillator#1e1.3[]
+      1 def='8' <-ADSR#1e9.6[]
+      2 def='0' ->X-Mix#2a4.1[]
+      3 def='1' 
+    === CONTAINER Tempo Sync LFO (#1ec) rect [311, 592, 422, 667]
+      cplug 3 CPlugIO2 "Audio Out" def='0' partner=239 : ->VCA#275.0[]
+      cplug 4 CPlugIO2 "Spare" def='' partner=None : 
+    - Fixed Values <CUG/Fixed Values> #228 rect [181, 120, 252, 162]
+        0 "60000" def='60000' ->Multiply#24b.0[]
+        1 "Spare Value" def='0' 
+    - Divisions <CSwitch/Switch (Many->1)> #22b rect [195, 176, 254, 361]
+        0 def='0' <-Waveform#253.3[Choice]
+        1 def='' ->Multiply#24b.1[]
+        2 " 4b" def='' <-4b#22e.0[16]
+        3 " 2b" def='' <-2b#230.0[8]
+        4 " 1b" def='' <-1b#232.0[4]
+        5 " 2/1" def='' <-2/1#234.0[2]
+        6 " 1/1" def='' <-1/1#236.0[1]
+        7 " 1/2" def='' <-1/2#240.0[0.5]
+        8 " 1/4" def='' <-1/4#23e.0[0.25]
+        9 " 1/8" def='' <-1/8#23c.0[0.125]
+        10 " 1/12" def='' <-1/12#23a.0[0.08333]
+        11 " 1/16" def='' <-1/16#238.0[0.0625]
+        12 "Spare Input" def='' 
+    - Divide <CUG/Divide> #22d rect [390, 136, 427, 191]
+        0 def='8' <-BPM Clock2#24e.2[]
+        1 def='8' <-Multiply#24b.2[]
+        2 def='0' ->Oscillator#242.0[]
+    - 4b <CUG/Fixed Values> #22e rect [49, 72, 112, 114]
+        0 "16" def='16' ->Divisions#22b.2[ 4b]
+        1 "Spare Value" def='0' 
+    - 2b <CUG/Fixed Values> #230 rect [49, 120, 112, 162]
+        0 "8" def='8' ->Divisions#22b.3[ 2b]
+        1 "Spare Value" def='0' 
+    - 1b <CUG/Fixed Values> #232 rect [49, 168, 112, 210]
+        0 "4" def='4' ->Divisions#22b.4[ 1b]
+        1 "Spare Value" def='0' 
+    - 2/1 <CUG/Fixed Values> #234 rect [49, 216, 112, 258]
+        0 "2" def='2' ->Divisions#22b.5[ 2/1]
+        1 "Spare Value" def='0' 
+    - 1/1 <CUG/Fixed Values> #236 rect [49, 264, 112, 306]
+        0 "1" def='1' ->Divisions#22b.6[ 1/1]
+        1 "Spare Value" def='0' 
+    - 1/16 <CUG/Fixed Values> #238 rect [49, 504, 112, 546]
+        0 "0.0625" def='0.0625' ->Divisions#22b.11[ 1/16]
+        1 "Spare Value" def='0' 
+    - 1/12 <CUG/Fixed Values> #23a rect [49, 456, 112, 498]
+        0 "0.08333" def='0.08333' ->Divisions#22b.10[ 1/12]
+        1 "Spare Value" def='0' 
+    - 1/8 <CUG/Fixed Values> #23c rect [49, 408, 112, 450]
+        0 "0.125" def='0.125' ->Divisions#22b.9[ 1/8]
+        1 "Spare Value" def='0' 
+    - 1/4 <CUG/Fixed Values> #23e rect [49, 360, 112, 402]
+        0 "0.25" def='0.25' ->Divisions#22b.8[ 1/4]
+        1 "Spare Value" def='0' 
+    - 1/2 <CUG/Fixed Values> #240 rect [49, 312, 112, 354]
+        0 "0.5" def='0.5' ->Divisions#22b.7[ 1/2]
+        1 "Spare Value" def='0' 
+    - Oscillator <CUG/Oscillator> #242 rect [474, 168, 534, 275]
+        0 def='5' <-Divide#22d.2[]
+        1 def='5' 
+        2 def='0' 
+        3 def='0' ->IO Mod#24c.0[Audio Out]
+        4 def='0' 
+        5 def='0' 
+        6 def='1' 
+        7 def='5' 
+        8 def='1' 
+        9 def='1' 
+    - Multiply <CUG/Multiply> #24b rect [284, 176, 325, 231]
+        0 def='8' <-Fixed Values#228.0[60000]
+        1 def='8' <-Divisions#22b.1[]
+        2 def='0' ->Divide#22d.1[]
+    - IO Mod <CUG/IO Mod> #24c rect [622, 200, 674, 242]
+        0 "Audio Out" def='' <-Oscillator#242.3[]
+        1 "Spare" def='' 
+    - BPM Clock2 <CPlugin2/Synthedit BPM Clock V2> #24e rect [269, 40, 339, 121]
+        0 def='' 
+        1 def='' 
+        2 def='' ->Divide#22d.0[]
+        3 def='' 
+        4 def='4' 
+      === CONTAINER Waveform (#253) rect [27, 0, 118, 65]
+        cplug 3 CPlugIO2 "Choice" def='' partner=502 : ->Divisions#22b.0[]
+        cplug 4 CPlugIO2 "Spare" def='' partner=None : 
+      - IO Mod <CUG/IO Mod> #265 rect [445, 136, 484, 178]
+          0 "Choice" def='' <-Waveform#268.2[]
+          1 "Spare" def='' 
+      - Waveform <ui_param_enum_in2/PatchMemListIn2> #268 rect [356, 120, 412, 175]
+          0 "Name" def='Waveform' 
+          1 "Value" def='7' <-Int To List2#26f.1[Out]
+          2 def='' ->IO Mod#265.0[Choice]
+      - Bitmap Image <control_ob_bitmap/Image> #26a rect [33, 40, 127, 118]
+          0 "Animation Position" def='' ->Image to Frame#26e.0[Animation Position]
+          1 "Filename" def='Z:\\Software\\SynthEdit\\skins\\meow\\LFO.png' list='bmp' 
+          2 "Mouse Down" def='0' 
+          3 "Frame Count" def='' ->Image to Frame#26e.1[Frame Count]
+      - Image to Frame <ui_bitmap_frame/Image to Frame> #26e rect [145, 40, 239, 95]
+          0 "Animation Position" def='0.777778' <-Bitmap Image#26a.0[Animation Position]
+          1 "Frame Count" def='10' <-Bitmap Image#26a.3[Frame Count]
+          2 "Frame Number" def='0' ->Int To List2#26f.0[In]
+      - Int To List2 <CPlugin2/Synthedit Int To List2> #26f rect [242, 120, 303, 175]
+          0 "In" def='7' <-Image to Frame#26e.2[Frame Number]
+          1 "Out" def='' ->Waveform#268.1[Value]
+          2 "Mode" def='0' list='Index,Value' 
+  - ADSR <CUG/ADSR> #271 rect [341, 448, 408, 555]
+      0 def='1' <-Midi to CV#1dc.3[]
+      1 def='0' <-Vibrato Attack#277.6[]
+      2 def='5' 
+      3 def='7' 
+      4 def='4' 
+      5 def='10' <-Vibrato Amount#283.6[]
+      6 def='0' ->VCA#275.1[]
+  - VCA <CUG/VCA> #275 rect [439, 520, 518, 588]
+      0 def='0' <-Tempo Sync LFO#1ec.3[Audio Out]
+      1 def='8' <-ADSR#271.6[]
+      2 def='0' ->Oscillator#1e1.0[]
+      3 def='1' 
+  - Vibrato Attack <Ctl_Slider/Slider> #277 rect [251, 448, 325, 509] vals[0:6]=[10.0, 9.05, 6.6, 10.0, 10.0, 10.0] handle=491
+      0 def='-1' 
+      1 def='0' 
+      2 def='' 
+      3 def='-1' 
+      4 def='0' 
+      5 def='0' 
+      6 def='' ->ADSR#271.1[]
+      7 def='0.000' 
+      8 def='10.000' 
+      9 def='3' 
+      10 def='0' 
+      11 def='0' 
+  - Vibrato Amount <Ctl_Slider/Slider> #283 rect [238, 520, 322, 581] vals[0:6]=[0.0, 10.0, 7.1, 1.5, 1.05, 10.0] handle=32391
+      0 def='-1' 
+      1 def='0' 
+      2 def='' 
+      3 def='1' 
+      4 def='0' 
+      5 def='0' 
+      6 def='' ->ADSR#271.5[]
+      7 def='0.000' 
+      8 def='10.000' 
+      9 def='3' 
+      10 def='0' 
+      11 def='0' 
+  - M <Ctl_Slider/Slider> #28f rect [181, 264, 236, 325] vals[0:6]=[2.9, 3.4, 3.35, 2.4, 2.3, 3.7] handle=12382
+      0 def='-1' 
+      1 def='0' 
+      2 def='' 
+      3 def='-1' 
+      4 def='0' 
+      5 def='0' 
+      6 def='' ->ADSR#1e9.1[]
+      7 def='0.000' 
+      8 def='10.000' 
+      9 def='3' 
+      10 def='0' 
+      11 def='0' 
+  - Oscillator <CUG/Oscillator> #29b rect [536, 304, 596, 411]
+      0 def='5' <-Midi to CV#1dc.4[]
+      1 def='5' 
+      2 def='5' 
+      3 def='0' ->VCA#2b8.0[]
+      4 def='0' 
+      5 def='0' 
+      6 def='0' 
+      7 def='5' 
+      8 def='0' 
+      9 def='0' 
+  - X-Mix <CUG/X-Mix> #2a4 rect [611, 184, 666, 252]
+      0 def='0' <-VCA#2b8.2[]
+      1 def='0' <-VCA#1ea.2[]
+      2 def='0' <-Noise#2a6.6[]
+      3 def='5' ->Container#12a.3[Input] ->Container#12a.4[Input]
+      4 def='1' 
+  - Noise <Ctl_Slider/Slider> #2a6 rect [533, 240, 588, 301] vals[0:6]=[-5.0, -4.0, -4.73, -4.0, -4.95, -4.0] handle=25667
+      0 def='-1' 
+      1 def='0' 
+      2 def='' 
+      3 def='-1' 
+      4 def='0' 
+      5 def='0' 
+      6 def='' ->X-Mix#2a4.2[]
+      7 def='-5' 
+      8 def='-4' 
+      9 def='3' 
+      10 def='0' 
+      11 def='0' 
+  - ADSR <CUG/ADSR> #2b2 rect [541, 416, 608, 523]
+      0 def='1' <-Midi to CV#1dc.3[]
+      1 def='0' 
+      2 def='5' 
+      3 def='7' 
+      4 def='4' 
+      5 def='10' 
+      6 def='0' ->VCA#2b8.1[]
+  - VCA <CUG/VCA> #2b8 rect [647, 408, 726, 476]
+      0 def='0' <-Oscillator#29b.3[]
+      1 def='8' <-ADSR#2b2.6[]
+      2 def='0' ->X-Mix#2a4.0[]
+      3 def='1' 
+  - W <Ctl_Slider/Slider> #2ba rect [179, 456, 234, 517] vals[0:6]=[4.3168, 4.4168, 4.2168, 3.8668, 2.9668, 5.4668] handle=19169
+      0 def='-1' 
+      1 def='0' 
+      2 def='' 
+      3 def='-1' 
+      4 def='0' 
+      5 def='0' 
+      6 def='' ->ADSR#1e9.4[]
+      7 def='0.000' 
+      8 def='10.000' 
+      9 def='3' 
+      10 def='0' 
+      11 def='0' 
+  - Portamento time <Ctl_Slider/Slider> #2c6 rect [51, 168, 143, 229] vals[0:6]=[5.56] handle=26500
+      0 def='-1' 
+      1 def='0' 
+      2 def='' 
+      3 def='5' 
+      4 def='1' 
+      5 def='0' 
+      6 def='' ->Midi to CV#1dc.9[]
+      7 def='4' 
+      8 def='10.000' 
+      9 def='3' 
+      10 def='0' 
+      11 def='0' 
+  - E <Ctl_Slider/Slider> #2d2 rect [179, 392, 234, 453] vals[0:6]=[2.1, 3.35, 2.55, 4.05, 4.0, 4.75] handle=15724
+      0 def='-1' 
+      1 def='0' 
+      2 def='' 
+      3 def='-1' 
+      4 def='0' 
+      5 def='0' 
+      6 def='' ->ADSR#1e9.3[]
+      7 def='0.000' 
+      8 def='10.000' 
+      9 def='3' 
+      10 def='0' 
+      11 def='0' 
+  - O <Ctl_Slider/Slider> #2de rect [173, 328, 228, 389] vals[0:6]=[7.2, 7.55, 7.6, 6.95, 6.8, 10.0] handle=11478
+      0 def='-1' 
+      1 def='0' 
+      2 def='' 
+      3 def='-1' 
+      4 def='0' 
+      5 def='0' 
+      6 def='' ->ADSR#1e9.2[]
+      7 def='0.000' 
+      8 def='10.000' 
+      9 def='3' 
+      10 def='0' 
+      11 def='0' 
+    === CONTAINER Animation (#2ea) rect [432, 0, 593, 188]
+      cplug 3 CPlugIO2 "Volts" def='' partner=167 : <-ADSR#1e9.6[]
+      cplug 4 CPlugIO2 "List Out" def='' partner=751 : 
+      cplug 5 CPlugIO2 "Spare" def='' partner=None : 
+    - IO Mod <CUG/IO Mod> #2fc rect [60, 96, 100, 151]
+        0 "Volts" def='' ->KDL Volts2GuiInt#303.2[]
+        1 "List Out" def='' <-Waveform#301.2[]
+        2 "Spare" def='' 
+    - Int To List2 <CPlugin2/Synthedit Int To List2> #2fe rect [266, 80, 327, 135]
+        0 "In" def='0' <-Image to Frame#300.2[Frame Number] <-KDL Volts2GuiInt#303.3[Int]
+        1 "Out" def='' ->Waveform#301.1[Value]
+        2 "Mode" def='0' list='Index,Value' 
+    - Image to Frame <ui_bitmap_frame/Image to Frame> #300 rect [153, 184, 247, 239]
+        0 "Animation Position" def='0' <-Bitmap Image#305.0[Animation Position]
+        1 "Frame Count" def='12' <-Bitmap Image#305.3[Frame Count]
+        2 "Frame Number" def='0' ->Int To List2#2fe.0[In]
+    - Waveform <ui_param_enum_in2/PatchMemListIn2> #301 rect [388, 168, 444, 223]
+        0 "Name" def='Waveform' 
+        1 "Value" def='0' <-Int To List2#2fe.1[Out]
+        2 def='' ->IO Mod#2fc.1[List Out]
+    - KDL Volts2GuiInt <CPlugin2/KDL Volts2GuiInt> #303 rect [129, 16, 223, 58]
+        0 def='' 
+        1 "DSP 2 GUI - In" def='0' 
+        2 def='' <-IO Mod#2fc.0[Volts]
+        3 "Int" def='' ->Int To List2#2fe.0[In]
+        4 "Sampling Method" def='1' list='Start,End,Start/End,All' 
+        5 "Sample Rate (Hz)" def='40' 
+        6 "Rounding Mode" def='0' list='Truncate=0,Round Off,Round Up' 
+    - Bitmap Image <control_ob_bitmap/Image> #305 rect [25, 200, 119, 288]
+        0 "Animation Position" def='' ->Image to Frame#300.0[Animation Position]
+        1 "Filename" def='baks.png' list='bmp' 
+        2 "Mouse Down" def='0' 
+        3 "Frame Count" def='' ->Image to Frame#300.1[Frame Count]
+    === CONTAINER Chorus (#308) rect [971, 136, 1062, 243]
+      cplug 3 CPlugIO2 "Input" def='' partner=261 : <-Container#12a.5[Signal Out]
+      cplug 4 CPlugIO2 "Input" def='' partner=272 : <-Container#12a.6[Signal Out]
+      cplug 5 CPlugIO2 "Output" def='' partner=87 : ->IO Mod#128.1[Signal Out]
+      cplug 6 CPlugIO2 "Output" def='' partner=94 : ->IO Mod#128.2[Signal Out]
+      cplug 7 CPlugIO2 "Chorus" def='0' partner=157 : <-Chorus#482.6[]
+      cplug 8 CPlugIO2 "Spare" def='' partner=None : 
+    - Oscillator <CUG/Oscillator> #343 rect [170, 112, 230, 219]
+        0 def='5' <-Knob#3a9.3[Output]
+        1 def='5' 
+        2 def='0' 
+        3 def='0' ->Level Adj#35c.0[]
+        4 def='0' 
+        5 def='0' 
+        6 def='0' 
+        7 def='5' 
+        8 def='1' 
+        9 def='1' 
+    - IO Mod <CUG/IO Mod> #34c rect [245, 48, 284, 103]
+        0 "Input" def='' ->Delay2#350.0[] ->X-Mix#354.1[]
+        1 "Input" def='' ->Delay2#356.0[] ->X-Mix#35a.1[]
+        2 "Spare" def='' 
+    - IO Mod <CUG/IO Mod> #34e rect [501, 120, 540, 175]
+        0 "Output" def='' <-X-Mix#354.3[]
+        1 "Output" def='' <-X-Mix#35a.3[]
+        2 "Spare" def='' 
+    - Delay2 <CUG/Delay2> #350 rect [339, 72, 397, 140]
+        0 def='' <-IO Mod#34c.0[Input]
+        1 def='10' <-Level Adj#35c.2[] <-Knob#43c.3[Output]
+        2 def='' ->X-Mix#354.0[]
+        3 def='0.06' 
+        4 def='1' 
+        5 def='0' 
+    - X-Mix <CUG/X-Mix> #354 rect [429, 72, 484, 140]
+        0 def='0' <-Delay2#350.2[]
+        1 def='0' <-IO Mod#34c.0[Input]
+        2 def='0' <-IO Mod#480.0[Chorus]
+        3 def='5' ->IO Mod#34e.0[Output]
+        4 def='1' 
+    - Delay2 <CUG/Delay2> #356 rect [339, 152, 397, 220]
+        0 def='' <-IO Mod#34c.1[Input]
+        1 def='10' <-Level Adj#367.2[] <-Knob#43c.3[Output]
+        2 def='' ->X-Mix#35a.0[]
+        3 def='0.06' 
+        4 def='1' 
+        5 def='0' 
+    - X-Mix <CUG/X-Mix> #35a rect [429, 152, 484, 220]
+        0 def='0' <-Delay2#356.2[]
+        1 def='0' <-IO Mod#34c.1[Input]
+        2 def='0' <-IO Mod#480.0[Chorus]
+        3 def='5' ->IO Mod#34e.1[Output]
+        4 def='1' 
+    - Level Adj <CUG/Level Adj> #35c rect [263, 112, 313, 167]
+        0 def='8' <-Oscillator#343.3[] <-Fixed Values#35d.0[5 Volt]
+        1 def='8' <-Knob#3f7.3[Output]
+        2 def='0' ->Delay2#350.1[]
+    - Fixed Values <CUG/Fixed Values> #35d rect [157, 56, 228, 98]
+        0 "5 Volt" def='5' ->Level Adj#35c.0[] ->Level Adj#367.0[]
+        1 "Spare Value" def='0' 
+    - Oscillator <CUG/Oscillator> #35f rect [170, 224, 230, 331]
+        0 def='5' <-Knob#3a9.3[Output]
+        1 def='5' 
+        2 def='0' 
+        3 def='0' ->Level Adj#367.0[]
+        4 def='0' 
+        5 def='0' <-Knob#368.3[Output]
+        6 def='0' 
+        7 def='5' 
+        8 def='1' 
+        9 def='1' 
+    - Level Adj <CUG/Level Adj> #367 rect [263, 176, 313, 231]
+        0 def='8' <-Oscillator#35f.3[] <-Fixed Values#35d.0[5 Volt]
+        1 def='8' <-Knob#3f7.3[Output]
+        2 def='0' ->Delay2#356.1[]
+      === CONTAINER Knob (#368) rect [79, 240, 145, 372]
+        cplug 3 CPlugIO2 "Output" def='' partner=819 : ->Oscillator#35f.5[]
+        cplug 4 CPlugIO2 "Spare" def='' partner=None : 
+      - Tinted Bitmap Image <control_ob_bitmap_tinted/Tinted Image> #382 rect [127, 112, 242, 270]
+          0 "Animation Position" def='' 
+          1 "Filename" def='moog_knob_L2' list='bmp' 
+          2 "Hue" def='10' 
+          3 "Saturation" def='0' 
+          4 "Brightness" def='10' 
+          5 "Mouse Down" def='0' 
+      - Bitmap Image <control_ob_bitmap/Image> #389 rect [9, 8, 103, 141]
+          0 "Animation Position" def='' ->Patch Mem - Float#394.2[Animation Position]
+          1 "Filename" def='moog_knob' list='bmp' 
+          2 "Mouse Down" def='0' 
+          3 "Frame Count" def='' 
+      - IO Mod <CUG/IO Mod> #38d rect [373, 32, 412, 74]
+          0 "Output" def='' <-Float to Volts#397.2[]
+          1 "Spare" def='' 
+      - Bitmap Image <control_ob_bitmap/Image> #38f rect [9, 152, 103, 285]
+          0 "Animation Position" def='' ->Patch Mem - Float#394.2[Animation Position]
+          1 "Filename" def='shiny_cap.png' list='bmp' 
+          2 "Mouse Down" def='0' 
+          3 "Frame Count" def='' 
+      - Patch Mem - Float <ui_param_float_in2/PatchMemFloatIn> #394 rect [155, 8, 254, 102]
+          0 "Name" def='Phase' <-Text Entry2#39a.0[Text]
+          1 "Value" def='0.32543' <-Float Scaler#3a6.3[Value Out]
+          2 "Animation Position" def='0.032543' <-Bitmap Image#389.0[Animation Position] <-Bitmap Image#38f.0[Animation Position]
+          3 "Min Value" def='0' 
+          4 "Max Value" def='10' 
+          5 def='' ->Float to Volts#397.1[]
+      - Float to Volts <CUG/FloatToVolts> #397 rect [277, 16, 348, 71]
+          0 def='2' 
+          1 def='' <-Patch Mem - Float#394.5[]
+          2 def='' ->IO Mod#38d.0[Output]
+      - Text Entry2 <control_ob_text/Text Entry2> #39a rect [250, 128, 310, 212]
+          0 "Text" def='' ->Patch Mem - Float#394.0[Name]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      - Text To Float <ui_text_to_float/Text To Float> #39f rect [106, 288, 183, 343]
+          0 "Value" def='0' ->Float Scaler#3a6.0[Value In]
+          1 "Text" def='5.9' <-Text Entry2#3a1.0[Text]
+          2 "Decimal Places" def='1' 
+      - Text Entry2 <control_ob_text/Text Entry2> #3a1 rect [18, 296, 78, 380]
+          0 "Text" def='' ->Text To Float#39f.1[Text]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      - Float Scaler <ui_float_scaler/UiFloatScaler> #3a6 rect [215, 288, 281, 356]
+          0 "Value In" def='5.857799' <-Text To Float#39f.0[Value]
+          1 "Multiply by" def='0.055555' 
+          2 "Add" def='0' 
+          3 "Value Out" def='' ->Patch Mem - Float#394.1[Value]
+      === CONTAINER Knob (#3a9) rect [63, 96, 129, 228]
+        cplug 3 CPlugIO2 "Output" def='' partner=802 : ->Oscillator#343.0[] ->Oscillator#35f.0[]
+        cplug 4 CPlugIO2 "Spare" def='' partner=None : 
+      - Tinted Bitmap Image <control_ob_bitmap_tinted/Tinted Image> #3c8 rect [191, 120, 306, 278]
+          0 "Animation Position" def='' 
+          1 "Filename" def='moog_knob_L2' list='bmp' 
+          2 "Hue" def='10' 
+          3 "Saturation" def='0' 
+          4 "Brightness" def='10' 
+          5 "Mouse Down" def='0' 
+      - Bitmap Image <control_ob_bitmap/Image> #3cf rect [9, 16, 103, 149]
+          0 "Animation Position" def='' ->Patch Mem - Float#3d9.2[Animation Position]
+          1 "Filename" def='moog_knob' list='bmp' 
+          2 "Mouse Down" def='0' 
+          3 "Frame Count" def='' 
+      - IO Mod <CUG/IO Mod> #3d3 rect [397, 24, 436, 66]
+          0 "Output" def='' <-Float to Volts#3dc.2[]
+          1 "Spare" def='' 
+      - Bitmap Image <control_ob_bitmap/Image> #3d5 rect [9, 160, 103, 293]
+          0 "Animation Position" def='' ->Patch Mem - Float#3d9.2[Animation Position]
+          1 "Filename" def='shiny_cap.png' list='bmp' 
+          2 "Mouse Down" def='0' 
+          3 "Frame Count" def='' 
+      - Patch Mem - Float <ui_param_float_in2/PatchMemFloatIn> #3d9 rect [167, 16, 266, 110]
+          0 "Name" def='Rate' <-Text Entry2#3de.0[Text]
+          1 "Value" def='-9.069625' 
+          2 "Animation Position" def='0.136023' <-Bitmap Image#3cf.0[Animation Position] <-Bitmap Image#3d5.0[Animation Position]
+          3 "Min Value" def='-10.4252' 
+          4 "Max Value" def='-0.4594' 
+          5 def='' ->Float to Volts#3dc.1[]
+      - Float to Volts <CUG/FloatToVolts> #3dc rect [285, 16, 356, 71]
+          0 def='2' 
+          1 def='' <-Patch Mem - Float#3d9.5[]
+          2 def='' ->IO Mod#3d3.0[Output] ->KDL Volts2Hz#3e8.0[]
+      - Text Entry2 <control_ob_text/Text Entry2> #3de rect [114, 176, 174, 260]
+          0 "Text" def='' ->Patch Mem - Float#3d9.0[Name]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      - Text To Float <ui_text_to_float/Text To Float> #3e2 rect [394, 168, 471, 223]
+          0 "Value" def='0' ->Patch Mem - Float Out#3ee.1[Value]
+          1 "Text" def='0.03' <-Text Entry2#3e4.0[Text]
+          2 "Decimal Places" def='2' 
+      - Text Entry2 <control_ob_text/Text Entry2> #3e4 rect [314, 144, 374, 228]
+          0 "Text" def='' ->Text To Float#3e2.1[Text]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      - KDL Volts2Hz <CPlugin2/KDL Volts2Hz> #3e8 rect [306, 88, 382, 130]
+          0 def='0' <-Float to Volts#3dc.2[]
+          1 def='' ->Volts to Float#3ea.0[]
+          2 def='5.0' 
+      - Volts to Float <CUG/VoltsToFloat> #3ea rect [397, 88, 468, 156]
+          0 def='' <-KDL Volts2Hz#3e8.1[]
+          1 def='4' 
+          2 def='10' 
+          3 def='' ->Patch Mem - Float Out#3ee.3[]
+      - Patch Mem - Float Out <ui_param_float_out2/PatchMemFloatOut> #3ee rect [492, 104, 613, 198]
+          0 "Name" def='Hz' <-Text Entry2#3f3.0[Text]
+          1 "Value" def='0.02559' <-Text To Float#3e2.0[Value]
+          2 def='' 
+          3 def='' <-Volts to Float#3ea.3[]
+          4 "Animation Position" def='0.002559' 
+          5 "Min Value" def='0' 
+          6 "Max Value" def='10' 
+      - Text Entry2 <control_ob_text/Text Entry2> #3f3 rect [474, 16, 534, 100]
+          0 "Text" def='' ->Patch Mem - Float Out#3ee.0[Name]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      === CONTAINER Knob (#3f7) rect [237, 248, 307, 380]
+        cplug 3 CPlugIO2 "Output" def='' partner=794 : ->Level Adj#367.1[] ->Level Adj#35c.1[]
+        cplug 4 CPlugIO2 "Spare" def='' partner=None : 
+      - Tinted Bitmap Image <control_ob_bitmap_tinted/Tinted Image> #410 rect [135, 120, 250, 278]
+          0 "Animation Position" def='' 
+          1 "Filename" def='moog_knob_L2' list='bmp' 
+          2 "Hue" def='10' 
+          3 "Saturation" def='0' 
+          4 "Brightness" def='10' 
+          5 "Mouse Down" def='0' 
+      - Bitmap Image <control_ob_bitmap/Image> #417 rect [9, 8, 103, 141]
+          0 "Animation Position" def='' ->Patch Mem - Float#421.2[Animation Position]
+          1 "Filename" def='moog_knob' list='bmp' 
+          2 "Mouse Down" def='0' 
+          3 "Frame Count" def='' 
+      - IO Mod <CUG/IO Mod> #41b rect [365, 24, 404, 66]
+          0 "Output" def='' <-Float to Volts#424.2[]
+          1 "Spare" def='' 
+      - Bitmap Image <control_ob_bitmap/Image> #41d rect [19, 152, 113, 285]
+          0 "Animation Position" def='' ->Patch Mem - Float#421.2[Animation Position]
+          1 "Filename" def='shiny_cap.png' list='bmp' 
+          2 "Mouse Down" def='0' 
+          3 "Frame Count" def='' 
+      - Patch Mem - Float <ui_param_float_in2/PatchMemFloatIn> #421 rect [155, 8, 254, 102]
+          0 "Name" def='Depth' <-Text Entry2#426.0[Text]
+          1 "Value" def='4.191325' <-Float Scaler#439.3[Value Out]
+          2 "Animation Position" def='0.838265' <-Bitmap Image#417.0[Animation Position] <-Bitmap Image#41d.0[Animation Position]
+          3 "Min Value" def='0' 
+          4 "Max Value" def='5' 
+          5 def='' ->Float to Volts#424.1[]
+      - Float to Volts <CUG/FloatToVolts> #424 rect [275, 8, 346, 63]
+          0 def='2' 
+          1 def='' <-Patch Mem - Float#421.5[]
+          2 def='' ->IO Mod#41b.0[Output]
+      - Text Entry2 <control_ob_text/Text Entry2> #426 rect [282, 80, 342, 164]
+          0 "Text" def='' ->Patch Mem - Float#421.0[Name]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      - Text To Float <ui_text_to_float/Text To Float> #42a rect [98, 296, 175, 351]
+          0 "Value" def='0' ->Float Scaler#439.0[Value In]
+          1 "Text" def='25.15' <-Text Entry2#42c.0[Text]
+          2 "Decimal Places" def='2' 
+      - Text Entry2 <control_ob_text/Text Entry2> #42c rect [18, 288, 78, 372]
+          0 "Text" def='' ->Text To Float#42a.1[Text]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      - Text Entry2 <control_ob_text/Text Entry2> #430 rect [266, 176, 326, 260]
+          0 "Text" def='' ->Patch Mem - Text#435.0[Value]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      - Patch Mem - Text <ui_param_text_in/Patch Mem - Text in> #435 rect [345, 176, 439, 244]
+          0 "Value" def='ms' <-Text Entry2#430.0[Text]
+          1 def='' 
+          2 "File Dialog" def='0' 
+          3 "Name" def='Patch Mem - Text' 
+      - Float Scaler <ui_float_scaler/UiFloatScaler> #439 rect [199, 288, 265, 356]
+          0 "Value In" def='25.147902' <-Text To Float#42a.0[Value]
+          1 "Multiply by" def='0.166667' 
+          2 "Add" def='0' 
+          3 "Value Out" def='' ->Patch Mem - Float#421.1[Value]
+      === CONTAINER Knob (#43c) rect [317, 248, 387, 380]
+        cplug 3 CPlugIO2 "Output" def='' partner=832 : ->Delay2#356.1[] ->Delay2#350.1[]
+        cplug 4 CPlugIO2 "Spare" def='' partner=None : 
+      - Tinted Bitmap Image <control_ob_bitmap_tinted/Tinted Image> #455 rect [135, 120, 250, 278]
+          0 "Animation Position" def='' 
+          1 "Filename" def='moog_knob_L2' list='bmp' 
+          2 "Hue" def='10' 
+          3 "Saturation" def='0' 
+          4 "Brightness" def='10' 
+          5 "Mouse Down" def='0' 
+      - Bitmap Image <control_ob_bitmap/Image> #45c rect [9, 8, 103, 141]
+          0 "Animation Position" def='' ->Patch Mem - Float#466.2[Animation Position]
+          1 "Filename" def='moog_knob' list='bmp' 
+          2 "Mouse Down" def='0' 
+          3 "Frame Count" def='' 
+      - IO Mod <CUG/IO Mod> #460 rect [365, 24, 404, 66]
+          0 "Output" def='' <-Float to Volts#469.2[]
+          1 "Spare" def='' 
+      - Bitmap Image <control_ob_bitmap/Image> #462 rect [19, 152, 113, 285]
+          0 "Animation Position" def='' ->Patch Mem - Float#466.2[Animation Position]
+          1 "Filename" def='shiny_cap.png' list='bmp' 
+          2 "Mouse Down" def='0' 
+          3 "Frame Count" def='' 
+      - Patch Mem - Float <ui_param_float_in2/PatchMemFloatIn> #466 rect [155, 8, 254, 102]
+          0 "Name" def='Min' <-Text Entry2#46b.0[Text]
+          1 "Value" def='1.15' <-Float Scaler#47d.3[Value Out]
+          2 "Animation Position" def='0.23' <-Bitmap Image#45c.0[Animation Position] <-Bitmap Image#462.0[Animation Position]
+          3 "Min Value" def='0' 
+          4 "Max Value" def='5' 
+          5 def='' ->Float to Volts#469.1[]
+      - Float to Volts <CUG/FloatToVolts> #469 rect [275, 8, 346, 63]
+          0 def='2' 
+          1 def='' <-Patch Mem - Float#466.5[]
+          2 def='' ->IO Mod#460.0[Output]
+      - Text Entry2 <control_ob_text/Text Entry2> #46b rect [282, 80, 342, 164]
+          0 "Text" def='' ->Patch Mem - Float#466.0[Name]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      - Text To Float <ui_text_to_float/Text To Float> #46f rect [98, 296, 175, 351]
+          0 "Value" def='0' ->Float Scaler#47d.0[Value In]
+          1 "Text" def='6.90' <-Text Entry2#471.0[Text]
+          2 "Decimal Places" def='2' 
+      - Text Entry2 <control_ob_text/Text Entry2> #471 rect [18, 288, 78, 372]
+          0 "Text" def='' ->Text To Float#46f.1[Text]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      - Text Entry2 <control_ob_text/Text Entry2> #475 rect [266, 176, 326, 260]
+          0 "Text" def='' ->Patch Mem - Text#479.0[Value]
+          1 "Style" def='3' list='Normal,Heading 1,Heading 2,Heading 3,User 1, User 2, User 3' 
+          2 "Mode" def='1' list='Normal,Read-Only' 
+          3 "Multiline" def='0' 
+      - Patch Mem - Text <ui_param_text_in/Patch Mem - Text in> #479 rect [345, 176, 439, 244]
+          0 "Value" def='ms' <-Text Entry2#475.0[Text]
+          1 def='' 
+          2 "File Dialog" def='0' 
+          3 "Name" def='Patch Mem - Text' 
+      - Float Scaler <ui_float_scaler/UiFloatScaler> #47d rect [199, 288, 265, 356]
+          0 "Value In" def='6.899986' <-Text To Float#46f.0[Value]
+          1 "Multiply by" def='0.166667' 
+          2 "Add" def='0' 
+          3 "Value Out" def='' ->Patch Mem - Float#466.1[Value]
+    - IO Mod <CUG/IO Mod> #480 rect [29, 24, 68, 66]
+        0 "Chorus" def='' ->X-Mix#354.2[] ->X-Mix#35a.2[]
+        1 "Spare" def='' 
+  - Chorus <Ctl_Slider/Slider> #482 rect [773, 24, 828, 85] vals[0:6]=[-5.0, 2.25, -4.75, 4.75, 0.35, 4.75] handle=16827
+      0 def='-1' 
+      1 def='0' 
+      2 def='' 
+      3 def='-1' 
+      4 def='0' 
+      5 def='0' 
+      6 def='' ->Chorus#308.7[Chorus]
+      7 def='-5.000' 
+      8 def='5.000' 
+      9 def='3' 
+      10 def='0' 
+      11 def='0' 
+    === CONTAINER Waveform (#48e) rect [19, 280, 142, 355]
+      cplug 3 CPlugIO2 "Choice" def='' partner=279 : ->Midi to CV#1dc.7[]
+      cplug 4 CPlugIO2 "Spare" def='' partner=None : 
+    - IO Mod <CUG/IO Mod> #49f rect [445, 136, 484, 178]
+        0 "Choice" def='' <-Waveform#4a1.2[]
+        1 "Spare" def='' 
+    - Waveform <ui_param_enum_in2/PatchMemListIn2> #4a1 rect [356, 120, 412, 175]
+        0 "Name" def='Waveform' 
+        1 "Value" def='1' <-Int To List2#4a7.1[Out]
+        2 def='' ->IO Mod#49f.0[Choice]
+    - Bitmap Image <control_ob_bitmap/Image> #4a3 rect [33, 40, 156, 128]
+        0 "Animation Position" def='' ->Image to Frame#4a6.0[Animation Position]
+        1 "Filename" def='polycat.png' list='bmp' 
+        2 "Mouse Down" def='0' 
+        3 "Frame Count" def='' ->Image to Frame#4a6.1[Frame Count]
+    - Image to Frame <ui_bitmap_frame/Image to Frame> #4a6 rect [145, 40, 239, 95]
+        0 "Animation Position" def='0' <-Bitmap Image#4a3.0[Animation Position]
+        1 "Frame Count" def='2' <-Bitmap Image#4a3.3[Frame Count]
+        2 "Frame Number" def='0' ->Int To List2#4a7.0[In]
+    - Int To List2 <CPlugin2/Synthedit Int To List2> #4a7 rect [242, 120, 303, 175]
+        0 "In" def='0' <-Image to Frame#4a6.2[Frame Number]
+        1 "Out" def='' ->Waveform#4a1.1[Value]
+        2 "Mode" def='0' list='Index,Value' 
+  - Patch Select <Ctl_PatchSel/Patch Select> #4aa rect [190, 16, 259, 71]
+      0 def='-1' 
+      1 def='0' <-IO Mod#128.0[MIDI In]
+      2 def='' ->IO Mod#128.3[MIDI Out]
+  - Bitmap Image <control_ob_bitmap/Image> #4ac rect [92, 720, 260, 818]
+      0 "Animation Position" def='' ->Float to Bool#4b1.0[In]
+      1 "Filename" def='URL.png' list='bmp' 
+      2 "Mouse Down" def='0' 
+      3 "Frame Count" def='' 
+  - Float to Bool <ui_float_to_bool/Float To Bool> #4b1 rect [278, 744, 347, 786]
+      0 "In" def='0' <-Bitmap Image#4ac.0[Animation Position]
+      1 "Out" def='0' ->System Command2#4b3.0[Trigger]
+  - System Command2 <ui_system_command/System Command2> #4b3 rect [361, 736, 472, 791]
+      0 "Trigger" def='0' <-Float to Bool#4b1.1[Out]
+      1 "Command" def='4' 
+      2 "Filename" def='http://knobster.org/projects/meowsynth/' 
+    === CONTAINER Waveform (#4b6) rect [51, 88, 142, 163]
+      cplug 3 CPlugIO2 "Choice" def='' partner=285 : ->Midi to CV#1dc.2[]
+      cplug 4 CPlugIO2 "Spare" def='' partner=None : 
+    - IO Mod <CUG/IO Mod> #4c7 rect [445, 136, 484, 178]
+        0 "Choice" def='' <-Waveform#4c9.2[]
+        1 "Spare" def='' 
+    - Waveform <ui_param_enum_in2/PatchMemListIn2> #4c9 rect [356, 120, 412, 175]
+        0 "Name" def='Waveform' 
+        1 "Value" def='11' <-Int To List2#4cf.1[Out]
+        2 def='' ->IO Mod#4c7.0[Choice]
+    - Bitmap Image <control_ob_bitmap/Image> #4cb rect [19, 40, 113, 128]
+        0 "Animation Position" def='' ->Image to Frame#4ce.0[Animation Position]
+        1 "Filename" def='pitchrange.png' list='bmp' 
+        2 "Mouse Down" def='0' 
+        3 "Frame Count" def='' ->Image to Frame#4ce.1[Frame Count]
+    - Image to Frame <ui_bitmap_frame/Image to Frame> #4ce rect [177, 8, 271, 63]
+        0 "Animation Position" def='1' <-Bitmap Image#4cb.0[Animation Position]
+        1 "Frame Count" def='12' <-Bitmap Image#4cb.3[Frame Count]
+        2 "Frame Number" def='0' ->Int To List2#4cf.0[In]
+    - Int To List2 <CPlugin2/Synthedit Int To List2> #4cf rect [266, 104, 327, 159]
+        0 "In" def='11' <-Image to Frame#4ce.2[Frame Number]
+        1 "Out" def='' ->Waveform#4c9.1[Value]
+        2 "Mode" def='0' list='Index,Value' 
