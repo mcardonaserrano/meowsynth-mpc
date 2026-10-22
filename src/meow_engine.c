@@ -568,5 +568,5 @@ static void *create(const char *data_dir) {
 
 static void destroy(void *inst) { free(inst); }
 
-static const mpc_engine_t ENGINE = { create, destroy, midi, set_param, get_param, render, NULL };
+static const mpc_engine_t ENGINE = { create, destroy, midi, set_param, get_param, render, NULL, NULL };
 const mpc_engine_t *mpc_engine(void) { return &ENGINE; }

@@ -290,12 +290,22 @@ def theme(skin):
                                         and not (d["key"] == number_box and kind(c, "Label", "Value"))]
         dropped += len(names)
     json.dump(tui, open(path, "w"))
+    # each option's two images, read from its button: gen_vst.py names popup ones by first use and shares them between
+    # pickers with the same options (sh_po_N), so the file name says nothing about which option it shows
+    images = {}
+    for d in tui["pageData"]["componentDefinitions"]["localComponentDefinitions"]:
+        for c in d["value"].get("componentsData") or []:
+            if kind(c, "Button"):
+                data = c["componentData"]["data"]
+                images[d["key"]] = {"on": data["onImage"], "off": data["offImage"]}
     n = 0
-    for key, labels, scale, dark in (("sh_seg_preset_%d", PRESETS, 2, False), ("sh_seg_ftype_%d", FTYPES, 3, False),
-                                     ("sh_popopt_0_vib_speed_%d", SPEEDS, 3, True)):
+    for key, labels, scale, dark in (("shSeg_preset_%d", PRESETS, 2, False), ("shSeg_ftype_%d", FTYPES, 3, False),
+                                     ("shPopOpt_0_vib_speed_%d", SPEEDS, 3, True)):
         for i, label in enumerate(labels):
             for state in ("off", "on"):
-                f = os.path.join(skin, (key % i) + "_%s.png" % state)
+                if (key % i) not in images:
+                    sys.exit("theme: no button %s in TUI.json (did the layout change?)" % (key % i))
+                f = os.path.join(skin, images[key % i][state])
                 if not os.path.isfile(f):
                     sys.exit("theme: %s is missing (did the layout change?)" % os.path.basename(f))
                 w, h = Image.open(f).size

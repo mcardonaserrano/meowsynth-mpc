@@ -2,7 +2,7 @@
   "name": "MeowSynth",
   "vendor": "knobster",
   "uid": "Meow",
-  "version": 1001,
+  "version": 1002,
   "so": "meowsynth.so",
   "params": "params.json",
   "layout": "layout.conf",
