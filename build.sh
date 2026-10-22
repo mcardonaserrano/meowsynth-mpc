@@ -18,12 +18,24 @@ VERSION="$(cat VERSION)"   # shown on the panel and used for the zip
 [ -f assets/panels.png ] || { echo "assets/ is empty: run re/extract_assets.py /path/to/MeowSynth.dll first" >&2; exit 1; }
 mkdir -p build
 
-# 1. artwork, params.h, skin (browser renderer), then the MeowSynth finish on top
+# 0. the five cats' preset states, each saved by the engine itself (tools/meow_presets.c), in the first target's compiler
+case "${TARGETS%% *}" in
+  aarch64) GCC_IMAGE=arm64v8/gcc:12-bookworm GCC_PLATFORM=linux/arm64 ;;
+  *)       GCC_IMAGE=arm32v7/gcc:11-bullseye GCC_PLATFORM=linux/arm/v7 ;;
+esac
+docker run --rm --platform "$GCC_PLATFORM" -u "$U" -v "$HERE":/b -v "$MV":/mv:ro -w /b "$GCC_IMAGE" bash -euc "
+  gcc -O2 -std=gnu11 -I/mv/wrapper tools/meow_presets.c src/meow_engine.c -lm -o build/meow_presets
+  build/meow_presets > build/presets.txt
+"
+
+# 1. artwork (with the Instruments-browser tile), params.h, skin (browser renderer), the MeowSynth finish on top, and the
+#    five cats as presets in place of gen_vst.py's Default
 docker build -q -t mpc-vst-html-art "$MV/tools/html_art" >/dev/null
 docker run --rm -u "$U" -e HOME=/tmp -e MPC_VST=/mv -v "$HERE":/w -v "$MV":/mv:ro -w /w mpc-vst-html-art sh -euc "
   python3 tools/meow_art.py images
   python3 /mv/tools/gen_vst.py vst.json
   python3 tools/meow_art.py theme 'build/skin/$SKIN/Plugin Skins'
+  python3 tools/meow_art.py presets 'build/skin/$SKIN' build/presets.txt
 "
 
 # 2. the plugin, only VSTPluginMain exported: armhf with glibc 2.31 (bullseye) so it also loads on MPC OS 2.x (2.32);

@@ -25,7 +25,7 @@ re/extract_assets.py ../MeowSynth.dll     # once: the original bitmaps -> assets
 ```
 `build.sh` expects a checkout of mpc-vst-plugins next to this folder (or `MPC_VST=/path`), and Docker that can run
 arm/v7 and arm64 containers (QEMU). It writes `dist/knobster - VST - MeowSynth/` (the Gen 1 plugin as one folder),
-`dist/MeowSynth-1.0.2-mpc-armv7.zip` (Gen 1) and `dist/MeowSynth-1.0.2-mpc-aarch64.zip` (Gen 2), each with
+`dist/MeowSynth-1.0.3-mpc-armv7.zip` (Gen 1) and `dist/MeowSynth-1.0.3-mpc-aarch64.zip` (Gen 2), each with
 mpc-vst-plugins' installer. Both zips go on the same release.
 
 ## Install
@@ -63,6 +63,8 @@ the MEOW page's thirteen, then Cutoff, Resonance, Env Mod.
 
 The five cats (Clear cat, Old cat, March cat, Catband, Gospel cats) are the original's programs. Picking one
 sets the MEOW page's controls; Porta, P.Bend and the FILTER page keep their values, as in the original.
+MeowSynth also has its own tile in Sounds › INSTRUMENTS: tap it and pick a cat to start a track from that cat
+(a whole fresh sound, the FILTER page included). MPC lists presets when it starts, which the installer takes care of.
 Vib Speed follows the song tempo: the vibrato's period in beats, from 4 bars down to 1/16 of a beat.
 
 Things the original does that may surprise:
@@ -83,7 +85,8 @@ Things the original does that may surprise:
 - `src/meow_engine.c`: the synth. `src/meow_vst.c`: the entry point (stock wrapper + the cat's report).
 - `params.json`, `layout.conf`, `skin.css`, `vst.json`: the port's description for mpc-vst-plugins.
 - `tools/gen2_install.sh`: the Gen 2 install (above). `docs/GEN2_PORTING.md`: porting a Gen 1 plugin to Gen 2.
-- `tools/meow_art.py`: page art and the skin's finish. `assets/`: bitmaps taken from the DLL. `images/`: built art.
+- `tools/meow_art.py`: page art, the skin's finish, the INSTRUMENTS tile and the five cat presets
+  (`tools/meow_presets.c` has the engine write each cat's state). `assets/`: bitmaps taken from the DLL. `images/`: built art.
 - `re/`: how the DLL was read (`NOTES.md`), the parser and the patch's netlist; `re/ab/`: the A/B rig that runs
   the DLL under Wine next to this engine.
 

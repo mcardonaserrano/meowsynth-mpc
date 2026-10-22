@@ -3,10 +3,13 @@
 re/extract_assets.py): the brushed blue panel, the cat, the black knobs with a yellow value arc, the grey
 LCD boxes, the POLYCAT bar and the 4x5 pixel lettering.
 
-    tools/meow_art.py images            -> images/ (page backgrounds, cat frames, knob and P.BEND filmstrips, POLYCAT)
+    tools/meow_art.py images            -> images/ (page backgrounds, cat frames, knob and P.BEND filmstrips, POLYCAT,
+                                           the Instruments-browser tile)
     tools/meow_art.py theme <skin dir>  -> finishes a skin built by gen_vst.py: option buttons get the pixel
                                            lettering, and MPC's own name captions under the controls are
                                            dropped (the page art already names everything, as the original did)
+    tools/meow_art.py presets <plugin folder> <states>
+                                        -> the five cats as MPC presets (Presets/*.xpl), in place of gen_vst.py's Default
 
 Pillow only. Positions are page pixels (1280x628); layout.conf uses the same numbers + 86 in y."""
 import json
@@ -231,6 +234,19 @@ def option(w, h, label, scale, on, dark=False):
     return im
 
 
+def tile():
+    """The 270x110 tile MPC's Sounds > INSTRUMENTS page shows for the plugin (vst.json "tile"): the meowing cat in its
+    screen and the logo, on the brushed blue from the middle of the page."""
+    img = brushed().crop((0, 260, 270, 370))
+    screen(img, 7, 9, 120, 92)
+    cat = Image.open(os.path.join(ASSETS, "cat_strip.png")).convert("RGBA").crop((0, 120 * 9, 160, 120 * 10))   # mouth open
+    img.alpha_composite(cat.resize((112, 84), Image.LANCZOS), (11, 13))
+    logo = Image.open(os.path.join(ASSETS, "logo.png")).convert("RGBA").crop((0, 0, 167, 30))
+    img.alpha_composite(logo.resize((128, 23), Image.LANCZOS), (136, 28))
+    draw_text(img, 200, 63, "BY KNOBSTER", 2, fill=(205, 224, 233), shadow=(0, 0, 0, 90), anchor="center")
+    return img.convert("RGB")
+
+
 def images():
     os.makedirs(IMAGES, exist_ok=True)
     for page, name in enumerate(("bg_meow.png", "bg_filter.png")):
@@ -242,6 +258,7 @@ def images():
     bend_strip().save(os.path.join(IMAGES, "bend_strip.png"))
     bar(POLYCAT[2], POLYCAT[3], "POLYCAT", 5, False).save(os.path.join(IMAGES, "polycat_off.png"))
     bar(POLYCAT[2], POLYCAT[3], "POLYCAT", 5, True).save(os.path.join(IMAGES, "polycat_on.png"))
+    tile().save(os.path.join(IMAGES, "tile.png"))
     print("images:", ", ".join(sorted(os.listdir(IMAGES))))
 
 
@@ -314,11 +331,46 @@ def theme(skin):
     print("theme: %d name captions dropped, %d values moved up, %d option images redrawn" % (dropped, moved, n))
 
 
+def presets(folder, states):
+    """Tapping the Instruments tile opens the plugin's preset page, which lists <plugin folder>/Presets/*.xpl. gen_vst.py
+    ships one "Default" there with the tile; MeowSynth's default is Clear cat, so the five cats replace it, in the
+    original's order. states: "<cat index>\t<state>" lines from tools/meow_presets.c, the engine's own chunk text with
+    that cat picked; each is wrapped (plus the chunk's NUL, as effGetChunk returns it) by mpc-vst-plugins' tools/xpl.py,
+    with the %payload-path% that install.sh fills in."""
+    sys.path.insert(0, os.path.join(os.environ.get("MPC_VST") or os.path.join(PORT, "..", "mpc-vst-plugins"), "tools"))
+    import xpl
+    cfg = json.load(open(os.path.join(PORT, "vst.json")))
+    params = json.load(open(os.path.join(PORT, "params.json")))["params"]
+    names = next(p["options"] for p in params if p["key"] == "preset")
+    so_path = "%%payload-path%%/%s - VST - %s/%s" % (cfg["vendor"], cfg["name"], cfg["so"])
+    uid = int.from_bytes(cfg["uid"].encode(), "big")
+    lines = [l.split("\t", 1) for l in open(states).read().splitlines() if l.strip()]
+    if sorted(int(i) for i, _ in lines) != list(range(len(names))):
+        sys.exit("presets: %s has cats %s, want 0..%d" % (states, [i for i, _ in lines], len(names) - 1))
+    out = os.path.join(folder, "Presets")
+    os.makedirs(out, exist_ok=True)
+    for f in os.listdir(out):            # gen_vst.py's Default, and anything a previous build left
+        if f.endswith(".xpl"):
+            os.remove(os.path.join(out, f))
+    for i, state in sorted((int(i), s) for i, s in lines):
+        if not state.startswith("MEOW1 preset=%d " % i):
+            sys.exit("presets: cat %d's state is %r" % (i, state[:40]))
+        text = xpl.xpl(cfg["name"], cfg["vendor"], so_path, uid, cfg["version"], state.encode() + b"\0", preset=names[i])
+        st = xpl.b64dec(text.split("<state>")[1].split("</state>")[0])
+        if st != xpl.fxb_chunk_set(uid, cfg["version"], state.encode() + b"\0"):   # the encoding reads back
+            sys.exit("presets: cat %d does not decode back" % i)
+        with open(os.path.join(out, "%04d-%s.xpl" % (i, names[i])), "w", encoding="utf-8") as f:
+            f.write(text)
+    print("presets:", ", ".join(sorted(os.listdir(out))))
+
+
 def main():
     if sys.argv[1:] == ["images"]:
         images()
     elif len(sys.argv) == 3 and sys.argv[1] == "theme":
         theme(sys.argv[2])
+    elif len(sys.argv) == 4 and sys.argv[1] == "presets":
+        presets(sys.argv[2], sys.argv[3])
     else:
         sys.exit(__doc__)
 
