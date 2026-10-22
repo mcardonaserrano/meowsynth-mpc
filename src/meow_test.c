@@ -53,6 +53,7 @@ int main(void) {
     CHECK(reports <= 1 && top_frame == 0, "silent: the cat's mouth stays shut");
     for (int p = 0; p < 5; p++) {
         a->setP(a, 0, p / 4.0f);
+        run(a, 1, &peak);   /* the wrapper applies a host set of parameter 0 (the preset) at the next block */
         reports = top_frame = 0;
         midi(a, 0x90, 60, 127); midi(a, 0x90, 64, 127); midi(a, 0x90, 67, 127);
         double rms = run(a, 344, &peak);                       /* 1 s held */

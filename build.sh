@@ -25,7 +25,7 @@ docker run --rm -u "$U" -e HOME=/tmp -e MPC_VST=/mv -v "$HERE":/w -v "$MV":/mv:r
 # 2. the plugin: armhf, glibc 2.31 (bullseye), only VSTPluginMain exported
 docker run --rm --platform linux/arm/v7 -u "$U" -v "$HERE":/b -v "$MV":/mv:ro -w /b arm32v7/gcc:11-bullseye bash -euc "
   gcc -O2 -Wall -Wextra -Wno-unused-parameter -fPIC -shared -fvisibility=hidden -std=gnu11 -Ibuild -I/mv/wrapper \
-      src/meow_engine.c src/meow_vst.c -lm -Wl,--no-undefined -o build/meowsynth.so
+      src/meow_engine.c src/meow_vst.c -lm -lpthread -Wl,--no-undefined -o build/meowsynth.so
   strip build/meowsynth.so
   echo \"exported: \$(readelf --dyn-syms -W build/meowsynth.so | grep -E ' GLOBAL .* [0-9]+ [A-Za-z]' | grep -v UND | awk '{print \$8}' | tr '\n' ' ')\"
   echo \"highest glibc: \$(readelf -V build/meowsynth.so | grep -o 'GLIBC_[0-9.]*' | sort -uV | tail -1) (MPC OS 2.x has 2.32)\"

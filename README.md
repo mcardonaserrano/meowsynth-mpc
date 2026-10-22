@@ -23,7 +23,7 @@ re/extract_assets.py ../MeowSynth.dll     # once: the original bitmaps -> assets
 ./build.sh                                # Docker: art, skin, armhf .so -> dist/
 ```
 `build.sh` expects a checkout of mpc-vst-plugins next to this folder (or `MPC_VST=/path`). It writes
-`dist/knobster - VST - MeowSynth/` (the plugin as one folder) and `dist/MeowSynth-1.0.1-mpc-armv7.zip` (the same
+`dist/knobster - VST - MeowSynth/` (the plugin as one folder) and `dist/MeowSynth-1.0.2-mpc-armv7.zip` (the same
 with mpc-vst-plugins' installer).
 
 ## Install
