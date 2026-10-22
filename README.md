@@ -20,15 +20,24 @@ same glides, vibrato and chorus behaviour (`re/NOTES.md`). `previews/ab_original
 ```
 re/extract_assets.py ../MeowSynth.dll     # once: the original bitmaps -> assets/
 ./test.sh                                 # offline: host test + the cat check, must print PASSED twice
-./build.sh                                # Docker: art, skin, armhf .so -> dist/
+./test.sh aarch64                         # the same on Gen 2's CPU, in an arm64 container (QEMU)
+./build.sh                                # Docker: art, skin, the Gen 1 and Gen 2 .so -> dist/ (or ./build.sh armv7|aarch64)
 ```
-`build.sh` expects a checkout of mpc-vst-plugins next to this folder (or `MPC_VST=/path`). It writes
-`dist/knobster - VST - MeowSynth/` (the plugin as one folder) and `dist/MeowSynth-1.0.2-mpc-armv7.zip` (the same
-with mpc-vst-plugins' installer).
+`build.sh` expects a checkout of mpc-vst-plugins next to this folder (or `MPC_VST=/path`), and Docker that can run
+arm/v7 and arm64 containers (QEMU). It writes `dist/knobster - VST - MeowSynth/` (the Gen 1 plugin as one folder),
+`dist/MeowSynth-1.0.2-mpc-armv7.zip` (Gen 1) and `dist/MeowSynth-1.0.2-mpc-aarch64.zip` (Gen 2), each with
+mpc-vst-plugins' installer. Both zips go on the same release.
 
 ## Install
 Needs root SSH on the MPC (a modded unit), as for every mpc-vst-plugins plugin. The installer stops and
 restarts MPC and backs up `MPC.settings` first.
+
+Pick the zip for your unit: **Gen 1** (Force, MPC Live / Live II, One, X, Key 61: 32-bit ARM) takes
+`MeowSynth-<version>-mpc-armv7.zip`; **Gen 2** (MPC Live III and other RK3588 units: 64-bit, MPC OS 3.x) takes
+`MeowSynth-<version>-mpc-aarch64.zip`. They are the same plugin with the same page, parameters and presets, so a
+project moves between the two. The installer checks the zip against the unit (`uname -m`) and refuses the wrong one.
+On Gen 2, `/sdcard` may not be mounted: install into a Synths folder on a drive with
+`sh install.sh -t /media/<drive>/Synths` (mpc-vst-plugins docs/GEN2.md).
 - Installer app: drop the zip into the [MPC plugin installer](https://github.com/sd88me/mpc-vst-plugins/releases/latest).
 - By hand: unzip on the device and run `sh install.sh` as root; `INSTALL.md` in the zip has the manual steps.
 - Updating an installed copy when only the sound changed: replace `meowsynth.so` in
@@ -58,7 +67,8 @@ Things the original does that may surprise:
 - The cat's mouth follows the note's envelope, as in the original. The plugin reports each frame to MPC with
   `audioMasterAutomate`. If a parameter called "Meow" ever turns up in recorded automation and gets in the way,
   rebuild with `"MEOW_ANIMATE": 0` under `"defines"` in `vst.json` for a still cat.
-- CPU: `../mpc-vst-plugins/tools/bench.sh build/meowsynth.so <ip>` before relying on it in a full project.
+- CPU (Gen 1): `../mpc-vst-plugins/tools/bench.sh build/meowsynth.so <ip>` before relying on it in a full project.
+  There is no Gen 2 benchmark yet (bench.c is armv7 only).
 
 ## Files
 - `src/meow_engine.c`: the synth. `src/meow_vst.c`: the entry point (stock wrapper + the cat's report).
