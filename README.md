@@ -36,8 +36,17 @@ Pick the zip for your unit: **Gen 1** (Force, MPC Live / Live II, One, X, Key 61
 `MeowSynth-<version>-mpc-armv7.zip`; **Gen 2** (MPC Live III and other RK3588 units: 64-bit, MPC OS 3.x) takes
 `MeowSynth-<version>-mpc-aarch64.zip`. They are the same plugin with the same page, parameters and presets, so a
 project moves between the two. The installer checks the zip against the unit (`uname -m`) and refuses the wrong one.
-On Gen 2, `/sdcard` may not be mounted: install into a Synths folder on a drive with
-`sh install.sh -t /media/<drive>/Synths` (mpc-vst-plugins docs/GEN2.md).
+
+**Gen 2:** the zip's `install.sh` alone does not work there: its default `/sdcard/Synths` does not exist, `/synths` is
+read-only, and cards and drives under `/media` are mounted `noexec`, so MPC cannot load a plugin from them. Use
+`tools/gen2_install.sh`, which installs into `/nvme/Synths` (the internal user partition) and adds that folder to MPC's
+skin locations (without that you get MPC's generic page of knobs instead of the cat):
+```
+unzip MeowSynth-<version>-mpc-aarch64.zip && scp -r MeowSynth-<version> root@<ip>:/tmp/
+ssh root@<ip> 'sh -s -- /tmp/MeowSynth-<version>' < tools/gen2_install.sh
+```
+Then remove MeowSynth from the track and insert it again. Tested on an MPC Live III (MPC OS 3.9.1);
+`docs/GEN2_PORTING.md` has the details.
 - Installer app: drop the zip into the [MPC plugin installer](https://github.com/sd88me/mpc-vst-plugins/releases/latest).
 - By hand: unzip on the device and run `sh install.sh` as root; `INSTALL.md` in the zip has the manual steps.
 - Updating an installed copy when only the sound changed: replace `meowsynth.so` in
@@ -73,6 +82,7 @@ Things the original does that may surprise:
 ## Files
 - `src/meow_engine.c`: the synth. `src/meow_vst.c`: the entry point (stock wrapper + the cat's report).
 - `params.json`, `layout.conf`, `skin.css`, `vst.json`: the port's description for mpc-vst-plugins.
+- `tools/gen2_install.sh`: the Gen 2 install (above). `docs/GEN2_PORTING.md`: porting a Gen 1 plugin to Gen 2.
 - `tools/meow_art.py`: page art and the skin's finish. `assets/`: bitmaps taken from the DLL. `images/`: built art.
 - `re/`: how the DLL was read (`NOTES.md`), the parser and the patch's netlist; `re/ab/`: the A/B rig that runs
   the DLL under Wine next to this engine.
