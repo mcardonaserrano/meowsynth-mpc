@@ -63,6 +63,21 @@ int main(void) {
               "%-11s rms %.3f, mouth opens to frame %d and shuts (%d reports)", PARAMS[0].opts[p], rms, top_frame, reports);
     }
     CHECK(peak < 0.999f, "peak %.3f stays inside full scale", peak);
+    /* a cat's saved state (what its preset in Presets/ holds, tools/meow_presets.c) brings that cat back on a fresh
+     * instance: effGetChunk (23) on one, effSetChunk (24) on the other, every parameter the same */
+    for (int p = 0; p < 5; p++) {
+        AEffect *x = VSTPluginMain(host), *y = VSTPluginMain(host);
+        if (!x || !y) return 1;
+        x->setP(x, 0, p / 4.0f);
+        run(x, 1, &peak);
+        void *chunk = 0;
+        intptr_t n = x->d(x, 23, 0, 0, &chunk, 0);
+        int same = n > 0 && y->d(y, 24, 0, n, chunk, 0) == 1;
+        for (int i = 0; same && i < NPARAMS; i++) same = fabsf(x->getP(x, i) - y->getP(y, i)) < 1e-4f;
+        CHECK(same && y->getP(y, 0) == p / 4.0f, "%-11s saved state restores it on a fresh instance (%d bytes)",
+              PARAMS[0].opts[p], (int)n);
+        x->d(x, 1, 0, 0, 0, 0); y->d(y, 1, 0, 0, 0, 0);
+    }
     a->d(a, 1, 0, 0, 0, 0);
     printf("%s\n", fails ? "FAILED" : "PASSED");
     return fails ? 1 : 0;
